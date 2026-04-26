@@ -27,3 +27,13 @@ bedrockDataSource.grantPrincipal.addToPrincipalPolicy(
     actions: ["bedrock:InvokeModel"],
   })
 );
+
+bedrockDataSource.grantPrincipal.addToPrincipalPolicy(
+  new PolicyStatement({
+    resources: ["*"],
+    actions: [
+      "aws-marketplace:ViewSubscriptions",
+      "aws-marketplace:Subscribe",
+    ],
+  })
+);
