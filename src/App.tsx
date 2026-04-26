@@ -17,6 +17,8 @@ function App() {
         </div>
         <div>
           <h1>Get started</h1>
+        <p className="read-the-docs">Created by Brian Vaughn</p>
+
         <p className="read-the-docs">Created by Diz Hydron</p>
 
           <p>
