@@ -1,29 +1,22 @@
 export function request(ctx) {
   const { ingredients = [] } = ctx.args;
 
-  const prompt = `Suggest a recipe idea using these ingredients: ${ingredients.join(", ")}.`;
+  const prompt = `Generate a clear recipe using these ingredients: ${ingredients.join(", ")}. Include a title, ingredients list, and numbered steps.`;
 
   return {
-    resourcePath: `/model/anthropic.claude-3-sonnet-20240229-v1:0/invoke`,
+    resourcePath: `/model/amazon.titan-text-express-v1/invoke`,
     method: "POST",
     params: {
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        anthropic_version: "bedrock-2023-05-31",
-        max_tokens: 1000,
-        messages: [
-          {
-            role: "user",
-            content: [
-              {
-                type: "text",
-                text: `\n\nHuman: ${prompt}\n\nAssistant:`,
-              },
-            ],
-          },
-        ],
+        inputText: prompt,
+        textGenerationConfig: {
+          maxTokenCount: 1000,
+          temperature: 0.7,
+          topP: 0.9,
+        },
       }),
     },
   };
@@ -32,9 +25,9 @@ export function request(ctx) {
 export function response(ctx) {
   const parsedBody = JSON.parse(ctx.result.body);
 
-  if (parsedBody.content && parsedBody.content[0] && parsedBody.content[0].text) {
+  if (parsedBody.results && parsedBody.results[0] && parsedBody.results[0].outputText) {
     return {
-      body: parsedBody.content[0].text,
+      body: parsedBody.results[0].outputText,
     };
   }
 
