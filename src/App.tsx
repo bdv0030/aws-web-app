@@ -40,7 +40,7 @@ function App() {
         <p className="description">
           Type a few ingredients, and Recipe AI will generate a recipe.
         </p>
-        <p className="name-line">Created by Diz Hydron</p>
+        <p className="name-line">Created by Brian Vaughn</p>
       </div>
       <form onSubmit={onSubmit} className="form-container">
         <div className="search-container">
