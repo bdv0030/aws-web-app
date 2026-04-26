@@ -32,7 +32,13 @@ export function request(ctx) {
 export function response(ctx) {
   const parsedBody = JSON.parse(ctx.result.body);
 
+  if (parsedBody.content && parsedBody.content[0] && parsedBody.content[0].text) {
+    return {
+      body: parsedBody.content[0].text,
+    };
+  }
+
   return {
-    body: parsedBody.content[0].text,
+    body: "Bedrock returned an unexpected response: " + JSON.stringify(parsedBody),
   };
 }
